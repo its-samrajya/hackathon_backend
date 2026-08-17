@@ -5,10 +5,16 @@ import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ArcjetGuard } from './common/guards/arcjet.guard.js';
+import { AuthModule } from './lib/auth/auth.module.js';
+import { PrismaModule } from './lib/database/prisma.module.js';
+import { AuthModule as AuthFeatureModule } from './module/auth/auth.module.js';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+    PrismaModule,
+    AuthModule,
+    AuthFeatureModule,
     ArcjetModule.forRoot({
       isGlobal: true,
       key: process.env.ARCJET_KEY!,
